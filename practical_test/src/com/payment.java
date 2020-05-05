@@ -21,7 +21,7 @@ public class payment {
 		return con;
 	}
 
-	// update added amount and producing updatedd html table using multiple pruduces
+	// update added amount 
 	// MediaType
 	public String updatePaymentdetails(String payID, String patientID, String doctorID, String date, String amount,
 			String cardnumber, String postalnumber) {
@@ -79,8 +79,8 @@ public class payment {
 				return "Error while connecting to the database for reading the appointmentdetails.";
 
 			}
-			output = "<table border=\"1\"><tr>" + "<th>Payment ID</th>" + "<th>patient ID</th>" + "<th>doctor ID</th>"
-					+ "<th>Date</th>" + "<th>Amount</th>" + "<th>card number</th>" + "<th>postal number</th></tr>";
+			output = "<table border=\"1\" align=\"center\" cellpadding=\"5\" cellspacing=\"5\" border=\"1\" class=\"table-dark\"><tr>" +"<th>PatientID</th>" + "<th>DocID</th>"
+					+ "<th>Date</th>" + "<th>Amount</th>" + "<th>card No</th>" + "<th>postal No</th>"+"<th>Update</th>"+"<th>Delete</th></tr>";
 
 			String query = "select * from successpayment";
 
@@ -97,16 +97,21 @@ public class payment {
 				String cardnumber = Integer.toString(rs.getInt("cardnumber"));
 				String postlnumber = Integer.toString(rs.getInt("postalnumber"));
 
-				output += "<td>" + payID + "</td>";
-				output += "<td>" + patientID + "</td>";
+				output += "<tr><td><input id=\"hidPaymentIDUpdate\" name=\"hidPaymentIDUpdate\"type=\"hidden\" value=\"" + payID + "\">" + patientID + "</td>";
 				output += "<td>" + doctorID + "</td>";
 				output += "<td>" + date + "</td>";
 				output += "<td>" + amount + "</td>";
 				output += "<td>" + cardnumber + "</td>";
-				output += "<td>" + postlnumber + "</td></tr>";
+				output += "<td>" + postlnumber + "</td>";
+				
+				//buttons event performances
+				output  += "<td><input name=\"btnUpdate\" type=\"button\" value=\"Update\" class=\"btnUpdate btn btn-secondary\"></td>"
+						+"<td><input name=\"btnDelete\" type=\"button\" value=\"Delete\" class=\"btn btn-danger\"></td>"
+						+ "<input name=\"hidItemIDDelete\" type=\"hidden\" value=\"" + payID + "\"class=\"btn-danger\">"
+						+ "</form></td></tr>";
 
 			}
-
+           
 			con.close();
 
 			output += "</table>";
