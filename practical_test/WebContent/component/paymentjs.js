@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 $(document).ready(function() {
 	if ($("#alertSuccess").text().trim() == "") {
 		$("#alertSuccess").hide();
@@ -16,18 +14,19 @@ $(document).on("click", "#btnSave", function(event) {
 	$("#alertError").text("");
 	$("#alertError").hide();
 	// Form validation-------------------
-	var status = validateItemForm();
+	var status = validatePaymentForm();
 	if (status != true) {
 		$("#alertError").text(status);
 		$("#alertError").show();
 		return;
 	}
-
+    //identify the method 
 	var type = ($("#hidpaymentIDSave").val() == "") ? "POST" : "PUT";
+	//sending data to the DC-Bus
 	$.ajax({
 		url : "paymentsAPI",
 		type : type,
-		data : $("#formItem").serialize(),
+		data : $("#formPay").serialize(),
 		dataType : "text",
 		complete : function(response, status) {
 			onPaymentSaveComplete(response.responseText, status);
@@ -56,7 +55,7 @@ function onPaymentSaveComplete(response, status) {
 	}
 	
 	$("#hidpaymentIDSave").val("");
-	$("#formItem")[0].reset();
+	$("#formPay")[0].reset();
 }
 
 
@@ -114,8 +113,8 @@ $(document).on(	"click",".btnUpdate",function(event) {
 
 				});
 
-// CLIENTMODEL=========================================================================
-function validateItemForm() {
+// CLIENTMODEL================================For the validation=========================================
+function validatePaymentForm() {
 	// Patient ID
 	if ($("#patientID").val().trim() == "") {
 		return "Insert Patient ID.";

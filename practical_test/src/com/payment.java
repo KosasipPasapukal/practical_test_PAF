@@ -6,7 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class payment {
-
+	
+    //implementation for DB connection
 	public static Connection getconnection() {
 		Connection con = null;
 		try {
@@ -21,8 +22,7 @@ public class payment {
 		return con;
 	}
 
-	// implementing the payment logic and generate success massage and generate HTML
-	// table with help of multiple MediaType
+	// implementing the payment logic 
 	public String payAppointment(String patientID, String doctorID, String date, String amount, String cardnumber,
 			String postalnumber) {
 		String output = "";
@@ -125,6 +125,7 @@ public class payment {
 
 	}
 
+	//update implementation
 	// update added amount
 	// MediaType
 	public String updatePaymentdetails(String payID, String patientID, String doctorID, String date, String amount,
@@ -170,6 +171,7 @@ public class payment {
 		return output;
 	}
 
+	//Delete logic implementation
 	// implement the delete payment and generate HTML table
 	public String paymentDelete(String payID) {
 
